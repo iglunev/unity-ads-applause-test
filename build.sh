@@ -24,7 +24,7 @@ PLATFORMS=$1
 UNITY="$2/Unity.app/Contents/MacOS/Unity"
 SDK_URL=$3
 
-PROJECT_PATH="$(pwd)/UnityAdsAssetStoreTest"
+PROJECT_PATH="$(pwd)/UnityAdsApplauseTest"
 EDITOR_LOG_MSG="Please check ~/Library/Logs/Unity/Editor.log"
 
 if [ ! -f "$UNITY" ]; then
@@ -55,11 +55,19 @@ if [ ! -z "$SDK_URL" ]; then
         echo "Defining UNITY_ADS failed. $EDITOR_LOG_MSG"
         exit $rc
     fi
+
+    # UNITY_ADS define is used to be able to import plugin from command line without compile erros in project
+    echo "Setting bundle version number to Ads SDK version..."
+    "$UNITY" -projectPath "$PROJECT_PATH" -executeMethod AutoBuilder.SetVersionNumber -batchMode -quit
+    rc=$?; if [[ $rc != 0 ]]; then
+        echo "Setting version number failed. $EDITOR_LOG_MSG"
+        exit $rc
+    fi
 fi
 
 if [[ $PLATFORMS =~ .*android.* ]]; then
     echo Building project for Android...
-    APK_PATH="UnityAdsAssetStoreTest/Builds/Android.apk"
+    APK_PATH="$PROJECT_PATH/Builds/Android.apk"
     if [ -f "$APK_PATH" ]; then
         rm "$APK_PATH"
     fi
@@ -76,13 +84,13 @@ if [[ $PLATFORMS =~ .*android.* ]]; then
 
     # TODO: Deploy to device
     # echo Installing on Android device...
-    # adb install -r UnityAdsAssetStoreTest/Builds/Android.apk
-    # adb shell am start -S -a android.intent.action.MAIN -n com.unity3d.UnityAdsAssetStoreTest/com.unity3d.player.UnityPlayerActivity
+    # adb install -r UnityAdsApplauseTest/Builds/Android.apk
+    # adb shell am start -S -a android.intent.action.MAIN -n com.unity3d.unityads.ApplauseTest/com.unity3d.player.UnityPlayerActivity
 fi
 
 if [[ $PLATFORMS =~ .*ios.* ]]; then
     echo Building project for iOS...
-    IOS_PATH="UnityAdsAssetStoreTest/Builds/iOS"
+    IOS_PATH="$PROJECT_PATH/Builds/iOS"
     if [ -d "$IOS_PATH" ]; then
         rm -rf "$IOS_PATH"
     fi
@@ -99,6 +107,6 @@ if [[ $PLATFORMS =~ .*ios.* ]]; then
     fi
 
     # TODO: Deploy to device
-    # open UnityAdsAssetStoreTest/Builds/iOS/Unity-iPhone.xcodeproj
-    # xcodebuild -project UnityAdsAssetStoreTest/Builds/iOS/Unity-iPhone.xcodeproj
+    # open UnityAdsApplauseTest/Builds/iOS/Unity-iPhone.xcodeproj
+    # xcodebuild -project UnityApplauseTest/Builds/iOS/Unity-iPhone.xcodeproj
 fi

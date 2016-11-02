@@ -1,23 +1,31 @@
-# Unity Ads Asset Store test project
+# Unity Ads Applause test project
 
-Test project for Unity Ads SDK using Asset Store package. Project is maintained using Unity 5.0, however can be opened in any later Unity version.
+Fork of https://github.com/Unity-Technologies/unity-ads-assetstore-test, with following changes specific to Applause:
 
-## How to use this project
+- setting default game ids to the ones used by Applause testers
+- set version number to SDK version number (convenient for Applause testers)
+- enable Unity Analytics on project
 
-First
+Project is maintained using Unity 5.x, typically latest public version.
 
-1. Switch to relevant repo branch, e.g. `5.0`, using e.g. `hg checkout 5.0` from command line (branch name indicates which Unity version is used to maintain project, can be opened in later Unity versions)
+For Unity Analytics, project is bound to <https://developer.cloud.unity3d.com/orgs/unityads-sdk-team/projects/unity-ads-applause-test/> under `UnityAds-SDK-team` org.
 
-Then
+Applause instructions are available at <https://docs.google.com/document/d/1sVMyM82s01fZ7KXlJG7BBp1FwxxESfEc3g6GcbBC6HM>
 
-1. Open `UnityAdsAssetStoreTest` project in Unity
+### From commandline
+
+```
+$ ./build.sh android,ios "/Applications/Unity 5.4.2f1" http://cdn.unityads.unity3d.com/unitypackage/2.0.5/UnityAds.unitypackage
+```
+
+### Using Unity
+
+1. Open `UnityAdsApplauseTest` project in Unity
 1. Open MainScene
 1. Open Asset Store window
 1. Search for "Unity Ads" and download/import either Unity Ads SDK 1.x or 2.x
 1. Set `UNITY_ADS` scripting define, either in Player Settings, or from `File->AutoBuilder->Enable Ads` menu
 1. Play in editor or deploy to your Android or iOS device
-
-Alternatively see `build.sh` script for how to automate importing and building project.
 
 ## Logging
 
@@ -27,11 +35,21 @@ Unity Ads related device logs are written with topic `UnityAds`, e.g. to filter 
 $ adb logcat -v time UnityAds:V *:S
 ```
 
-## Support
+## Sending to Applause
 
-Please use <http://forum.unity3d.com/forums/unity-ads.67> for questions related to this project.
+### Android
 
-Hope you find this project useful as example and test application for Unity Ads asset store package.
+Simply send the generated .apk file from Unity, along with instructions as PDF file
 
-Best regards,  
-Your Unity Ads team
+### iOS
+
+Need to be member of Applifier Oy org 
+
+1. Open Xcode project
+1. Product->Archive
+1. In Archives window, choose Export...
+1. -> Save for Development Deployment
+1. -> "Applifier Oy"
+1. -> "For all compatible devices"
+
+Save and send generated .ipa file to Applause with instructions as PDF file

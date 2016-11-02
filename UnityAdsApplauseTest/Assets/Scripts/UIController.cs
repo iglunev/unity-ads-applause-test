@@ -160,10 +160,8 @@ public class UIController : MonoBehaviour
 
 		deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
 
-#if UNITY_ADS
 		if (!adsInitialized && Ads.DefaultAdPlacementReady ())
 			adsInitialized = true; // has ads been available at some point? used to see if we managed to initialize correctly
-#endif
 
 		UpdateUI ();
 	}

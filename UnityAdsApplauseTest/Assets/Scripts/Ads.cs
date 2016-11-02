@@ -1,15 +1,16 @@
-﻿using UnityEngine;
-#if UNITY_ADS
+﻿#if UNITY_ADS
 using UnityEngine.Advertisements;
 #endif
 
-public class Ads
+public static class Ads
 {
 	#if UNITY_ANDROID
-	public const string AdsGameId = "";
+    public const string AdsGameId = "1185072";
 	#else
-	public const string AdsGameId = "";
+    public const string AdsGameId = "1185073";
 	#endif
+
+	private static string _gameId;
 
 	public static string Version
 	{
@@ -98,6 +99,8 @@ public class Ads
 
 		#if UNITY_ADS
 		Log (string.Format ("Initializing ads for game id {0}...", gameId));
+		Analytics.SendInitializeAdsEvent (gameId);
+		_gameId = gameId;
 		Advertisement.Initialize (gameId, testMode);
 		#endif
 	}
@@ -143,7 +146,8 @@ public class Ads
 		{
 			Log (string.Format ("Showing ad for placement '{0}'", placementId));
 		}
-		
+
+		Analytics.SendShowAdEvent (_gameId, placementId);
 		Advertisement.Show (placementId, options);
 		#endif
 	}
@@ -151,6 +155,7 @@ public class Ads
 	#if UNITY_ADS
 	private static void ShowAdResultCallback(ShowResult result)
 	{
+		Analytics.SendAdFinishedEvent (_gameId, result.ToString ());
 		Log ("Ad completed with result: " + result);
 	}
 	#endif

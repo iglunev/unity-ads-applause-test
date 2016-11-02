@@ -31,6 +31,14 @@ public static class AutoBuilder
 		PlayerSettings.SetScriptingDefineSymbolsForGroup (BuildTargetGroup.iOS, "UNITY_ADS");
 	}
 
+    [MenuItem("File/AutoBuilder/Set Version Number")]
+    static void SetVersionNumber ()
+    {
+        #if UNITY_ADS
+        PlayerSettings.bundleVersion = UnityEngine.Advertisements.Advertisement.version;
+        #endif
+    }
+
 	[MenuItem("File/AutoBuilder/Android")]
 	static void PerformAndroidBuild ()
 	{
