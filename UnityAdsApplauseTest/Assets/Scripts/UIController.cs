@@ -189,7 +189,7 @@ public class UIController : MonoBehaviour
             float timeSinceInitialize = Time.time - adsInitializeTime;
             if (timeSinceInitialize > 30)
             {
-                Log("Failed to initialize ads withing 30 seconds. Please verify you entered correct game id and placement ids and/or check device log for additional information");
+                Log("Failed to initialize ads within 30 seconds. Please verify you entered correct game id and placement ids and/or check device log for additional information");
                 return;
             }
 
