@@ -25,6 +25,7 @@ $ ./build.sh android,ios "/Applications/Unity 5.4.2f1" http://cdn.unityads.unity
 1. Open Asset Store window
 1. Search for "Unity Ads" and download/import either Unity Ads SDK 1.x or 2.x
 1. Set `UNITY_ADS` scripting define, either in Player Settings, or from `File->AutoBuilder->Enable Ads` menu
+1. iOS: make sure that 'Mute Other Audio Sources' option is set to ON from `Edit->Project Settings->Player(iOS)`, 
 1. Play in editor or deploy to your Android or iOS device
 
 ## Logging
